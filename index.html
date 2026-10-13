@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Korewa Watashi Kazoku Desu</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:#d8dccf;
+    font-family:Georgia,"Times New Roman",serif;
+    min-height:100vh;display:flex;justify-content:center;align-items:center;padding:16px;
+  }
+  .page{
+    position:relative;width:100%;max-width:1000px;min-height:600px;
+    background:#ececec;border-radius:18px;overflow:hidden;
+    box-shadow:0 10px 30px rgba(50,70,30,.22);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:30px 40px;
+  }
+  .deco{position:absolute;pointer-events:none}
+  .ivy{top:0;left:0;width:14%;height:70%}
+  .moss{bottom:0;right:0;width:30%;height:50%}
+
+  h1{
+    position:relative;z-index:2;text-align:center;font-weight:700;
+    font-size:clamp(1.4rem,3.2vw,2.2rem);color:#2f5a1e;letter-spacing:.5px;
+  }
+  .sub{position:relative;z-index:2;margin:4px 0 16px;color:#5d7f45;letter-spacing:3px;font-size:clamp(.8rem,1.3vw,.95rem)}
+
+  .grid{
+    position:relative;z-index:2;width:100%;max-width:300px;
+    display:grid;grid-template-columns:repeat(2,1fr);gap:14px 40px;
+  }
+  .frame{
+    display:block;cursor:pointer;aspect-ratio:1/1;padding:10px;
+    background:#c9e4a8;border:2px solid #8fbf5f;border-radius:14px;
+    box-shadow:0 0 0 3px #c9e4a8,0 0 0 5px #8fbf5f,0 6px 12px rgba(60,90,30,.22);
+    transition:transform .2s;
+  }
+  .frame:hover{transform:translateY(-3px)}
+  .inner{
+    width:100%;height:100%;background:#fff;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+    color:#8aa56a;font-size:2rem;
+  }
+  .inner img{width:100%;height:100%;object-fit:cover;display:block}
+  .frame input{display:none}
+  .cap{
+    display:block;width:100%;margin-top:10px;background:transparent;border:none;outline:none;
+    text-align:center;font:inherit;font-size:1rem;font-weight:700;color:#2f5a1e;
+  }
+  .cap::placeholder{color:#9bb27d;font-weight:400}
+
+  .desc{
+    position:relative;z-index:2;margin-top:22px;max-width:560px;
+    list-style:none;text-align:center;color:#2f5a1e;
+    font-size:clamp(.95rem,1.5vw,1.1rem);line-height:1.7;
+  }
+  .desc li:first-child{font-weight:700}
+
+  @media (max-width:640px){
+    .page{padding:40px 20px 50px}
+    .sub{margin-bottom:18px}
+    .grid{max-width:280px;gap:14px 28px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <svg class="deco ivy" viewBox="0 0 160 420" preserveAspectRatio="xMinYMin slice">
+    <defs>
+      <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#c4dc7a"/><stop offset="1" stop-color="#5c8a2c"/>
+      </linearGradient>
+      <path id="leaf" d="M0 0 C 18 -6 30 -22 26 -40 C 16 -30 6 -34 0 -48 C -6 -34 -16 -30 -26 -40 C -30 -22 -18 -6 0 0 Z"/>
+    </defs>
+    <path d="M10 0 C 40 80 20 160 50 260 C 62 310 40 370 56 420" stroke="#5c7a2a" stroke-width="3" fill="none"/>
+    <g fill="url(#lg)" stroke="#47701f" stroke-width="1">
+      <use href="#leaf" transform="translate(50 40) rotate(70) scale(1.5)"/>
+      <use href="#leaf" transform="translate(25 100) rotate(-80) scale(1.3)"/>
+      <use href="#leaf" transform="translate(40 165) rotate(80) scale(1.4)"/>
+      <use href="#leaf" transform="translate(32 235) rotate(-70) scale(1.2)"/>
+      <use href="#leaf" transform="translate(60 295) rotate(75) scale(1.2)"/>
+    </g>
+  </svg>
+
+  <svg class="deco moss" viewBox="0 0 330 300" preserveAspectRatio="none">
+    <path d="M330 20 C 270 80 190 120 150 190 C 120 240 90 270 60 300 L 330 300 Z" fill="#9db37b"/>
+    <path d="M330 110 C 280 150 230 190 200 230 C 185 255 170 280 150 300 L 330 300 Z" fill="#87a263" opacity=".7"/>
+    <g fill="#f4f6ea"><circle cx="190" cy="265" r="4"/><circle cx="230" cy="283" r="3.5"/><circle cx="270" cy="262" r="4"/><circle cx="310" cy="285" r="3.5"/><circle cx="215" cy="240" r="3"/></g>
+  </svg>
+
+  <h1>Korewa Watashi Kazoku Desu</h1>
+  <p class="sub">これはわたしのかぞくです</p>
+
+  <div class="grid" id="grid"></div>
+
+  <ul class="desc">
+    <li>Kore wa watashi kazoku desu</li>
+    <li>Watashi no kazoku wa yon nin desu</li>
+    <li>Watashi to chichi to haha to ani hitori desu</li>
+    <li>Watashi wa ichi ban ashita desu</li>
+  </ul>
+</div>
+
+<script>
+  // ====== ATUR FOTO DI SINI ======
+  // Taruh file foto di folder yang sama dengan file HTML ini,
+  // lalu tulis nama file-nya di bagian "photo".
+  // Kosongkan ('') kalau belum ada foto.
+  const family = [
+    { caption: 'Ayah / Chichi ちち',     photo: 'ayah.jpeg'  },
+    { caption: 'Ibu / Haha はは',        photo: 'ibuk.jpeg'  },
+    { caption: 'Kakak / Ani あに',       photo: 'abang.jpeg' },
+    { caption: 'Saya / Watashi わたし',  photo: 'saya.jpeg'  }
+  ];
+  // ===============================
+  const grid = document.getElementById('grid');
+  family.forEach(({ caption: text, photo }, i) => {
+    const slot = document.createElement('div');
+    slot.innerHTML =
+      '<label class="frame"><div class="inner">+</div><input type="file" accept="image/*"></label>' +
+      '<input class="cap" type="text" value="' + text + '" placeholder="Ketik caption">';
+    const input = slot.querySelector('input[type=file]');
+    const inner = slot.querySelector('.inner');
+    if (photo) {
+      const img = new Image();
+      img.alt = text;
+      img.onload = () => { inner.innerHTML = ''; inner.appendChild(img); };
+      img.src = photo; // kalau file tidak ditemukan, tetap tampil "+"
+    }
+    input.addEventListener('change', e => {
+      const f = e.target.files[0];
+      if (!f) return;
+      const r = new FileReader();
+      r.onload = ev => { inner.innerHTML = '<img alt="Foto ' + (i + 1) + '" src="' + ev.target.result + '">'; };
+      r.readAsDataURL(f);
+    });
+    grid.appendChild(slot);
+  });
+</script>
+</body>
+</html>
